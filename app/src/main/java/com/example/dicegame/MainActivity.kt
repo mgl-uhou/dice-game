@@ -48,25 +48,33 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun Dice(modifier: Modifier){
+    Canvas(
+        modifier = modifier
+            .size(96.dp, 96.dp)
+    ){
+        drawRoundRect(
+            Color.Green,
+            cornerRadius = CornerRadius(20f, 20f),
+            topLeft = Offset(10f, 10f),
+            size = size
+        )
+
+        drawCircle(
+            Color.Black,
+            radius = Dp(20f).value,
+            center = Offset(size.width / 2, size.height / 2)
+        )
+    }
+}
+
+@Composable
 fun App() {
     Box(modifier = Modifier
         .fillMaxSize()
         .background((Color.Black))
     ) {
-        Canvas(modifier = Modifier.size(96.dp, 96.dp).align(Alignment.Center)){
-            drawRoundRect(
-                Color.Green,
-                cornerRadius = CornerRadius(20f, 20f),
-                topLeft = Offset(10f, 10f),
-                size = size
-            )
-
-            drawCircle(
-                Color.Black,
-                radius = Dp(20f).value,
-                center = Offset(size.width / 2, size.height / 2)
-            )
-        }
+        Dice(modifier = Modifier.align(Alignment.Center))
 
        Button(
            onClick = {  },
