@@ -1,0 +1,57 @@
+# BOM e artefatos compilados
+*.apk
+*.ap_
+*.aab
+*.aar
+*.dex
+*.class
+
+# Diretórios temporários
+.gradle/
+build/
+out/
+captures/
+
+# Arquivos de configuração local
+local.properties
+
+# IntelliJ / Android Studio
+*.iml
+.idea/
+.idea/caches/
+.idea/modules.xml
+.idea/navEditor.xml
+
+# Build nativo (C/C++/NDK)
+.externalNativeBuild/
+.cxx/
+
+# Arquivos de serviços Google (Firebase, APIs)
+google-services.json
+
+# Keystores (descomente se quiser ignorá-los)
+*.jks
+*.keystore
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+fastlane/readme.md
+
+# Proguard / R8
+proguard/
+
+# Lint
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
+
+# Logs e temporários
+*.log
+*.tmp
+
+# Arquivos do macOS
+.DS_Store
