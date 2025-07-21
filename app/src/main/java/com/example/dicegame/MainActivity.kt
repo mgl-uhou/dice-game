@@ -60,19 +60,19 @@ fun DrawScope.circle(offset: (Float) -> Offset){
 
 fun DrawScope.center(){
     circle {
-        Offset(size.width / 2, size.height / 2)
+        Offset(size.width / 2 + it / 2, size.height / 2 + it / 2)
     }
 }
 
 fun DrawScope.centerRight(){
     circle {
-        Offset(size.width - it, size.height / 2)
+        Offset(size.width - it, size.height / 2 + it / 2)
     }
 }
 
 fun DrawScope.centerLeft(){
     circle {
-        Offset(it * 2, size.height / 2)
+        Offset(it * 2, size.height / 2 + it / 2)
     }
 }
 
@@ -146,7 +146,7 @@ fun Dice(number: Int, modifier: Modifier){
             .size(96.dp, 96.dp)
     ){
         drawRoundRect(
-            Color.Green,
+            Color.White,
             cornerRadius = CornerRadius(20f, 20f),
             topLeft = Offset(10f, 10f),
             size = size
