@@ -183,7 +183,7 @@ fun App() {
 
        Button(
            onClick = {
-               timer = 60
+               timer = 20
            },
            modifier = Modifier
                .align(Alignment.Center)
