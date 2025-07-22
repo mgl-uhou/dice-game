@@ -64,7 +64,6 @@ class MainActivity : ComponentActivity() {
 }
 
 fun DrawScope.bullet(number: Int) {
-    // calcula alguns valores usados abaixo
     val w = size.width
     val h = size.height
     val cx = w  / 2f          // center x
@@ -73,9 +72,8 @@ fun DrawScope.bullet(number: Int) {
     val qy = h  / 4f          // quarter y
     val tqx = w  * 3f / 4f    // three‑quarters x
     val tqy = h  * 3f / 4f    // three‑quarters y
-    val dotRadius = min(w, h) / 10f  // ajustável: tamanho do ponto
+    val dotRadius = min(w, h) / 10f
 
-    // desenha círculo preto em cada posição
     fun drawDot(at: Offset) {
         drawCircle(Color.Black, radius = dotRadius, center = at)
     }
@@ -120,8 +118,8 @@ fun DrawScope.bullet(number: Int) {
 fun Dice(number: Int, modifier: Modifier){
     Canvas(
         modifier = modifier
-            .padding(16.dp)
-            .size(112.dp)
+            .padding(20.dp)
+            .size(200.dp)
     ){
         drawRoundRect(
             color        = Color.White,
@@ -159,7 +157,7 @@ fun App() {
            },
            modifier = Modifier
                .align(Alignment.Center)
-               .offset(y = (100).dp),
+               .offset(y = (150).dp),
            colors = ButtonDefaults.buttonColors(
                containerColor = BrownBase,
                contentColor = Color.White
