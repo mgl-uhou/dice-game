@@ -19,8 +19,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.foundation.Canvas
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +35,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.dicegame.ui.theme.BrownBase
 import com.example.dicegame.ui.theme.DiceGameTheme
 import kotlinx.coroutines.delay
 import kotlin.random.Random
@@ -42,11 +46,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DiceGameTheme {
-                Scaffold { padding ->
+                Scaffold(
+                    topBar = { MyTopAppBar() },
+                ) { padding ->
                     Surface(
                         modifier = Modifier.fillMaxSize().padding(padding),
                         color = MaterialTheme.colorScheme.background
                     ) {
+                        MyTopAppBar()
                         App()
                     }
                 }
@@ -176,7 +183,7 @@ fun App() {
 
     Box(modifier = Modifier
         .fillMaxSize()
-        .background(Color.Black),
+        .background(Color.LightGray),
         contentAlignment = Alignment.Center
     ) {
         Dice(number = r, modifier = Modifier)
@@ -187,7 +194,11 @@ fun App() {
            },
            modifier = Modifier
                .align(Alignment.Center)
-               .offset(y = (100).dp)
+               .offset(y = (100).dp),
+           colors = ButtonDefaults.buttonColors(
+               containerColor = BrownBase,
+               contentColor = Color.White
+           )
            ) {
            if (timer > 0)
                Text("$timer")
@@ -197,7 +208,21 @@ fun App() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyTopAppBar() {
+    TopAppBar(
+        title = { Text("Dice Game") },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = BrownBase,
+            titleContentColor = Color.White,
+            navigationIconContentColor = Color.White
+        )
+    )
+}
+
 @Preview(showBackground = true)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GreetingPreview() {
     DiceGameTheme {
