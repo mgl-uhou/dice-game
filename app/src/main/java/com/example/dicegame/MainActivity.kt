@@ -21,6 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.foundation.Canvas
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -28,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.dicegame.ui.theme.DiceGameTheme
+import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
@@ -143,7 +149,7 @@ fun DrawScope.bullet(number: Int) {
 fun Dice(number: Int, modifier: Modifier){
     Canvas(
         modifier = modifier
-            .size(96.dp, 96.dp)
+            .size(96.dp)
     ){
         drawRoundRect(
             Color.White,
@@ -157,19 +163,36 @@ fun Dice(number: Int, modifier: Modifier){
 
 @Composable
 fun App() {
+    var r by remember { mutableStateOf(0) }
+    var timer by remember { mutableStateOf(0) }
+
+    LaunchedEffect(key1 = timer) {
+        if (timer > 0) {
+            delay((500 * (1.0f / timer)).toLong())
+            r = Random.nextInt(1, 7)
+            timer -= 1
+        }
+    }
+
     Box(modifier = Modifier
         .fillMaxSize()
-        .background((Color.Black))
+        .background(Color.Black),
+        contentAlignment = Alignment.Center
     ) {
-        Dice(number = 1, modifier = Modifier.align(Alignment.Center))
+        Dice(number = r, modifier = Modifier)
 
        Button(
-           onClick = {  },
+           onClick = {
+               timer = 60
+           },
            modifier = Modifier
                .align(Alignment.Center)
                .offset(y = (100).dp)
            ) {
-           Text("Play")
+           if (timer > 0)
+               Text("$timer")
+           else
+               Text("Play")
        }
     }
 }
