@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import com.example.dicegame.ui.theme.BrownBase
 import com.example.dicegame.ui.theme.DiceGameTheme
 import kotlinx.coroutines.delay
+import kotlin.math.min
 import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
@@ -62,93 +63,56 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-fun DrawScope.circle(offset: (Float) -> Offset){
-    val radius = Dp(20f).value
-    drawCircle(
-        Color.Black,
-        radius = radius,
-        center = offset(radius)
-    )
-}
-
-fun DrawScope.center(){
-    circle {
-        Offset(size.width / 2 + it / 2, size.height / 2 + it / 2)
-    }
-}
-
-fun DrawScope.centerRight(){
-    circle {
-        Offset(size.width - it, size.height / 2 + it / 2)
-    }
-}
-
-fun DrawScope.centerLeft(){
-    circle {
-        Offset(it * 2, size.height / 2 + it / 2)
-    }
-}
-
-fun DrawScope.topRight(){
-    circle {
-        Offset(size.width - it, it * 2)
-    }
-}
-
-fun DrawScope.topLeft(){
-    circle {
-        Offset(it * 2, it * 2)
-    }
-}
-
-fun DrawScope.bottomRight(){
-    circle {
-        Offset(size.width - it, size.height - it)
-    }
-}
-
-fun DrawScope.bottomLeft() {
-    circle {
-        Offset(it * 2, size.height - it)
-    }
-}
-
 fun DrawScope.bullet(number: Int) {
-    when(number){
-        1 -> {
-            center()
-        }
+    // calcula alguns valores usados abaixo
+    val w = size.width
+    val h = size.height
+    val cx = w  / 2f          // center x
+    val cy = h  / 2f          // center y
+    val qx = w  / 4f          // quarter x
+    val qy = h  / 4f          // quarter y
+    val tqx = w  * 3f / 4f    // three‑quarters x
+    val tqy = h  * 3f / 4f    // three‑quarters y
+    val dotRadius = min(w, h) / 10f  // ajustável: tamanho do ponto
+
+    // desenha círculo preto em cada posição
+    fun drawDot(at: Offset) {
+        drawCircle(Color.Black, radius = dotRadius, center = at)
+    }
+
+    when (number) {
+        1 -> drawDot(Offset(cx, cy))
         2 -> {
-            topRight()
-            bottomLeft()
+            drawDot(Offset(qx, qy))
+            drawDot(Offset(tqx, tqy))
         }
         3 -> {
-            topRight()
-            center()
-            bottomLeft()
+            drawDot(Offset(qx, qy))
+            drawDot(Offset(cx, cy))
+            drawDot(Offset(tqx, tqy))
         }
         4 -> {
-            topLeft()
-            topRight()
-            bottomLeft()
-            bottomRight()
+            drawDot(Offset(qx, qy))
+            drawDot(Offset(tqx, qy))
+            drawDot(Offset(qx, tqy))
+            drawDot(Offset(tqx, tqy))
         }
         5 -> {
-            topLeft()
-            topRight()
-            center()
-            bottomLeft()
-            bottomRight()
+            drawDot(Offset(qx, qy))
+            drawDot(Offset(tqx, qy))
+            drawDot(Offset(cx, cy))
+            drawDot(Offset(qx, tqy))
+            drawDot(Offset(tqx, tqy))
         }
         6 -> {
-            topLeft()
-            topRight()
-            centerRight()
-            centerLeft()
-            bottomLeft()
-            bottomRight()
+            drawDot(Offset(qx, qy))
+            drawDot(Offset(tqx, qy))
+            drawDot(Offset(qx, cy))
+            drawDot(Offset(tqx, cy))
+            drawDot(Offset(qx, tqy))
+            drawDot(Offset(tqx, tqy))
         }
-        else -> {}
+        else -> { /* nada */ }
     }
 }
 
@@ -156,13 +120,14 @@ fun DrawScope.bullet(number: Int) {
 fun Dice(number: Int, modifier: Modifier){
     Canvas(
         modifier = modifier
-            .size(96.dp)
+            .padding(16.dp)
+            .size(112.dp)
     ){
         drawRoundRect(
-            Color.White,
+            color        = Color.White,
             cornerRadius = CornerRadius(20f, 20f),
-            topLeft = Offset(10f, 10f),
-            size = size
+            topLeft      = Offset.Zero,
+            size         = size
         )
        bullet(number = number)
     }
