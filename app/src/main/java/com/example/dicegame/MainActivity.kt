@@ -169,7 +169,7 @@ fun App() {
                .align(Alignment.Center)
                .offset(y = (100).dp)
            ) {
-           Text("Jogar")
+           Text("Play")
        }
     }
 }
