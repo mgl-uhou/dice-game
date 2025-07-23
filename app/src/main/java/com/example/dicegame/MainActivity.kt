@@ -110,7 +110,7 @@ fun DrawScope.bullet(number: Int) {
             drawDot(Offset(qx, tqy))
             drawDot(Offset(tqx, tqy))
         }
-        else -> { /* nada */ }
+        else -> {  }
     }
 }
 
