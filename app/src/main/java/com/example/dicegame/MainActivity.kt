@@ -30,7 +30,6 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize().padding(padding),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        DiceTopAppBar()
                         GameScreen()
                     }
                 }
