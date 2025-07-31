@@ -1,5 +1,6 @@
 package com.example.dicegame
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,19 +20,15 @@ import com.example.dicegame.ui.theme.DiceGameTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        super.onCreate(savedInstanceState)
         setContent {
             DiceGameTheme {
                 Scaffold(
+                    containerColor = MaterialTheme.colorScheme.background,
                     topBar = { DiceTopAppBar() },
                 ) { padding ->
-                    Surface(
-                        modifier = Modifier.fillMaxSize().padding(padding),
-                        color = MaterialTheme.colorScheme.background
-                    ) {
-                        GameScreen()
-                    }
+                        GameScreen(modifier = Modifier.padding(padding))
                 }
             }
         }
@@ -44,7 +41,7 @@ class MainActivity : ComponentActivity() {
 fun GreetingPreview() {
     DiceGameTheme {
         Surface(modifier = Modifier.fillMaxSize()){
-            GameScreen()
+            GameScreen(modifier = Modifier)
         }
     }
 }

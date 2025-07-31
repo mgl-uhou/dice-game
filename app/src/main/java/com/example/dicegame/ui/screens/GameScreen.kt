@@ -23,7 +23,7 @@ import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 @Composable
-fun GameScreen() {
+fun GameScreen(modifier: Modifier) {
     var roll by remember { mutableStateOf(0) }
     var timer by remember { mutableStateOf(0) }
 
